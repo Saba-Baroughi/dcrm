@@ -1,5 +1,6 @@
 
-
+import os
+import dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -15,7 +16,7 @@ SECRET_KEY = 'django-insecure-mx3p*o(7k1!yp_lyyai4eel^fey%_*st(ss0=v(++xb_@t!2@5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1' ,'.herokuapp.com']
 
 
 # Application definition
@@ -64,6 +65,8 @@ WSGI_APPLICATION = 'dcrm.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
+# Use MySQL for development (local)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -74,6 +77,10 @@ DATABASES = {
         'PORT':'3306',
 }
 }
+# Use dj_database_url to parse DATABASE_URL for production (Heroku)
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if DATABASE_URL:
+    DATABASES['default'] = dj_database_url.parse(DATABASE_URL)
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
