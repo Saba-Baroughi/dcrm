@@ -18,7 +18,7 @@
     {%if records%} {%for record in records%}
 
     <tr>
-      <td>{{record.id}}</td>
+      <td><a href="{% url 'record' record.id %}">{{ record.id }}</a></td>
       <td>{{record.first_name}} {{record.last_name}}</td>
       <td>{{record.email}}</td>
       <td>{{record.phone}}</td>
@@ -32,36 +32,39 @@
   </tbody>
 </table>
 {% else %}
-<h1>Login</h1>
-<br />
 
-<form method="POST" action="{% url 'home' %}">
-  {% csrf_token %}
-  <form>
-    <div class="mb-3">
-      <input
-        type="text"
-        class="form-control"
-        name="username"
-        ,
-        placeholder="Username"
-        required
-      />
-    </div>
-    <div class="mb-3">
-      <input
-        type="password"
-        class="form-control"
-        name="password"
-        ,
-        placeholder="Password"
-        required
-      />
-    </div>
-    <br />
+<div class="col-md-6 offset-md-3">
+  <h1>Login</h1>
+  <br />
 
-    <button type="submit" class="btn btn-secondary">Login</button>
+  <form method="POST" action="{% url 'home' %}">
+    {% csrf_token %}
+    <form>
+      <div class="mb-3">
+        <input
+          type="text"
+          class="form-control"
+          name="username"
+          ,
+          placeholder="Username"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <input
+          type="password"
+          class="form-control"
+          name="password"
+          ,
+          placeholder="Password"
+          required
+        />
+      </div>
+      <br />
+
+      <button type="submit" class="btn btn-secondary">Login</button>
+    </form>
   </form>
-</form>
+</div>
 
 {% endif%} {% endblock %}
