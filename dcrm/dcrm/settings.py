@@ -2,6 +2,12 @@
 
 from pathlib import Path
 
+
+
+
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -66,16 +72,42 @@ WSGI_APPLICATION = 'dcrm.wsgi.application'
 
 
 # Use MySQL for development (local)
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'elderco',
-        'USER':'root',
-        'PASSWORD':'saba',
-        'HOST':'localhost',
-        'PORT':'3306',
-}
-}
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'elderco',
+#         'USER':'root',
+#         'PASSWORD':'saba',
+#         'HOST':'localhost',
+#         'PORT':'3306',
+# }
+# }
+
+
+import dj_database_url
+import os
+
+# Use Heroku database if available, otherwise use local MySQL
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'elderco',
+            'USER': 'root',
+            'PASSWORD': 'saba',
+            'HOST': 'localhost',
+            'PORT': '3306',
+        }
+    }
+
+# Rest of your Django settings...
+
 # Use dj_database_url to parse DATABASE_URL for production (Heroku)
 
 
