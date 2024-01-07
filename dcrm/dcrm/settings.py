@@ -2,7 +2,10 @@
 
 from pathlib import Path
 
-
+import os
+import dj_database_url
+if os.path.isfile('env.py'):
+    import env
 
 
 
@@ -88,8 +91,7 @@ WSGI_APPLICATION = 'dcrm.wsgi.application'
 
 
 
-import dj_database_url
-import os
+
 
 # Use Heroku database if available, otherwise use local MySQL
 if 'DATABASE_URL' in os.environ:
